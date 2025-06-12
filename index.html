@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Redirecting to Google Search</title>
+    <title>Redirecting to First Google Result</title>
   </head>
   <body>
     <script type="text/javascript">
@@ -16,25 +16,14 @@
           return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
-        var query = getParameterByName('q'); // Get 'q' parameter from URL
+        var query = getParameterByName('q');
 
         if (!query) return;
 
-        var googleSearchUrl = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+        // "I'm Feeling Lucky" link
+        var luckyUrl = 'https://www.google.com/search?q=' + encodeURIComponent(query) + '&btnI=1';
 
-        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-          window.location.href = googleSearchUrl;
-        } else if (/Android/i.test(navigator.userAgent)) {
-          window.location.href = googleSearchUrl;
-        } else {
-          window.location.href = googleSearchUrl;
-        }
-
-        function killPopup() {
-          window.removeEventListener('pagehide', killPopup);
-        }
-
-        window.addEventListener('pagehide', killPopup);
+        window.location.href = luckyUrl;
       };
     </script>
   </body>
