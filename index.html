@@ -5,25 +5,31 @@
     <title>Redirecting to First Google Result</title>
   </head>
   <body>
+    <!-- Hidden form to simulate "I'm Feeling Lucky" -->
+    <form id="luckyForm" action="https://www.google.com/search" method="GET" target="_self">
+      <input type="hidden" name="q" id="query" value="">
+      <input type="hidden" name="btnI" value="1">
+    </form>
+
     <script type="text/javascript">
       window.onload = function () {
         function getParameterByName(name, url = window.location.href) {
           name = name.replace(/[\[\]]/g, '\\$&');
-          var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-            results = regex.exec(url);
+          var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+          var results = regex.exec(url);
           if (!results) return null;
           if (!results[2]) return '';
           return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
         var query = getParameterByName('q');
-
         if (!query) return;
 
-        // "I'm Feeling Lucky" link
-        var luckyUrl = 'https://www.google.com/search?q=' + encodeURIComponent(query) + '?amp=1';
+        // Set the search query value in the hidden form
+        document.getElementById('query').value = query;
 
-        window.location.href = luckyUrl;
+        // Submit the form to trigger "I'm Feeling Lucky"
+        document.getElementById('luckyForm').submit();
       };
     </script>
   </body>
